@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>상품 목록</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <style>
+
+        body {
+            font-family: Charcoal, sans-serif;
+            background-color: #eee;
+            margin: 0;
+            padding: 0;
+        }
+
+        #title {   color: green; text-align: center; font-family: Impact; font-size: 35px;}
+        .box {
+            width: 270px;
+            height: 380px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 4px 4px 4px #ddd;
+        }
+
+        .box > div {
+            width: 270px;
+            height: 279px;
+            overflow: hidden;
+        }
+
+        .box > div > a > img {
+            width: 100%;
+            height: auto;
+        }
+
+        .box > div > a > img:hover {
+            opacity: 0.7;
+        }
+
+        .box h5 > a {
+            font-size: 12px;
+            color: #000;
+            text-decoration: none;
+            display: block;
+            margin: 10px 15px 0;
+        }
+
+        .box p > a {
+            font-size: 12px;
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin: 0 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .box span {
+            font-size: 11px;
+            margin: 0 15px;
+            float: left;
+        }
+
+        .box button {
+            font-size: 11px;
+            border-radius: 3px;
+            border: none;
+            background: #ba7112;
+            padding: 5px;
+            color: #fff;
+            margin-right: 15px;
+            float: right;
+            cursor: pointer;
+        }
+       .btn1 {background-color: tomato;  padding:3px 5px; color:#fff; border-radius:3px; }
+
+    </style>
+
+    <script>
+        $(function () {
+            $.ajax({
+                url: "./hit.json",
+                dataType: "json",
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            var box = $("<div class='box'></div>");
+
+                            box.append("<div><a href='#'><img src='img/hit/" + data[i].url + "'/></a></div>");
+                            box.append("<h5><a href='#'>" + data[i].title + "</a></h5>");
+                            box.append("<p><a href='#'>" + data[i].subtitle + "</a></p>");
+                            box.append("<span>" + data[i].price + "</span>");
+                            box.append("<span class='btn1'>" + data[i].sale_price + "</span>");
+
+                            var count = Math.floor(Math.random() * 100);
+                            box.append("<button>" + count + " REVIEWS</button>");
+
+                            $("article").append(box);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<main>
+    <h3 id="title">HIT OF HITS</h3>
+    <p>히트조명의 인기 상품</p>
+    <section>
+        <article></article>
+    </section>
+</main>
+</body>
+</html>
